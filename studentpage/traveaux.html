@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/footer.css">
+    <title>Mes Travaux - TD et TP</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #e9ecef;
+            --warning: #ffc107;
+            --danger: #e63946;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.2s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            color: var(--primary);
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .page-title {
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background-color: white;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-btn:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .document-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .document-thumbnail {
+            height: 150px;
+            background-color: #f1f1f1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .document-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .document-format {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--danger);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .document-info {
+            padding: 1rem;
+        }
+        
+        .document-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            line-clamp:2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.8rem;
+        }
+        
+        .document-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        
+        .document-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .document-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+        
+        .page-item {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: white;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s;
+        }
+        
+        .page-item:hover {
+            background-color: var(--gray);
+        }
+        
+        .page-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .document-status {
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #856404;
+        }
+        
+        .status-completed {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #155724;
+        }
+        
+        .status-overdue {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: #721c24;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6c757d;
+        }
+        
+        .modal-body {
+            padding: 0;
+            height: 80vh;
+        }
+        
+        .pdf-container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .documents-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .page-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EduPlateforme</div>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Tableau de bord</a>
+                <a href="#" class="nav-link">Mes cours</a>
+                <a href="#" class="nav-link active">Mes travaux</a>
+                <a href="#" class="nav-link">Mon apprentissage</a>
+                <a href="#" class="nav-link">Forum</a>
+            </div>
+            <div class="user-profile">
+                <img src="/api/placeholder/40/40" alt="Photo de profil" />
+                <span>Jean Dupont</span>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="page-title">
+            <h1>Mes Travaux</h1>
+            <div class="search-container">
+                <span class="search-icon"></span>
+                <input type="text" class="search-input" placeholder="Rechercher un TD ou TP...">
+            </div>
+        </div>
+        
+        <div class="filters">
+            <button class="filter-btn active">Tous</button>
+            <button class="filter-btn">TD</button>
+            <button class="filter-btn">TP</button>
+            <!-- <button class="filter-btn">À rendre</button>
+            <button class="filter-btn">Terminés</button>
+            <button class="filter-btn">En retard</button> -->
+        </div>
+        
+        <div class="documents-grid">
+            <!-- TD 1 -->
+            <div class="document-card">
+                <div class="document-thumbnail">
+                    <img src="/api/placeholder/250/150" alt="Aperçu du document" />
+                    <span class="document-format">PDF</span>
+                </div>
+                <div class="document-info">
+                    <span class="document-status status-completed">Terminé</span>
+                    <h3 class="document-title">TD 1: Introduction aux algorithmes</h3>
+                    <div class="document-meta">
+                        <span class="document-date">Ajouté le 05/03/2025</span>
+                        <span>2.5 MB</span>
+                    </div>
+                    <div class="document-actions">
+                        <button class="btn btn-primary view-pdf" data-id="td1">Consulter</button>
+                        <button class="btn btn-outline">Télécharger</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TP 1 -->
+            <div class="document-card">
+                <div class="document-thumbnail">
+                    <img src="/api/placeholder/250/150" alt="Aperçu du document" />
+                    <span class="document-format">PDF</span>
+                </div>
+                <div class="document-info">
+                    <span class="document-status status-completed">Terminé</span>
+                    <h3 class="document-title">TP 1: Implémentation d'algorithmes de tri</h3>
+                    <div class="document-meta">
+                        <span class="document-date">Ajouté le 07/03/2025</span>
+                        <span>3.1 MB</span>
+                    </div>
+                    <div class="document-actions">
+                        <button class="btn btn-primary view-pdf" data-id="tp1">Consulter</button>
+                        <button class="btn btn-outline">Télécharger</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TD 2 -->
+            <div class="document-card">
+                <div class="document-thumbnail">
+                    <img src="/api/placeholder/250/150" alt="Aperçu du document" />
+                    <span class="document-format">PDF</span>
+                </div>
+                <div class="document-info">
+                    <span class="document-status status-pending">À rendre (3j)</span>
+                    <h3 class="document-title">TD 2: Structures de données avancées</h3>
+                    <div class="document-meta">
+                        <span class="document-date">Ajouté le 10/03/2025</span>
+                        <span>1.8 MB</span>
+                    </div>
+                    <div class="document-actions">
+                        <button class="btn btn-primary view-pdf" data-id="td2">Consulter</button>
+                        <button class="btn btn-outline">Télécharger</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TP 2 -->
+            <div class="document-card">
+                <div class="document-thumbnail">
+                    <img src="/api/placeholder/250/150" alt="Aperçu du document" />
+                    <span class="document-format">PDF</span>
+                </div>
+                <div class="document-info">
+                    <span class="document-status status-pending">À rendre (5j)</span>
+                    <h3 class="document-title">TP 2: Implémentation d'arbres binaires de recherche</h3>
+                    <div class="document-meta">
+                        <span class="document-date">Ajouté le 10/03/2025</span>
+                        <span>2.7 MB</span>
+                    </div>
+                    <div class="document-actions">
+                        <button class="btn btn-primary view-pdf" data-id="tp2">Consulter</button>
+                        <button class="btn btn-outline">Télécharger</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TD 3 -->
+            <div class="document-card">
+                <div class="document-thumbnail">
+                    <img src="/api/placeholder/250/150" alt="Aperçu du document" />
+                    <span class="document-format">PDF</span>
+                </div>
+                <div class="document-info">
+                    <span class="document-status status-overdue">En retard (2j)</span>
+                    <h3 class="document-title">TD 3: Programmation orientée objet</h3>
+                    <div class="document-meta">
+                        <span class="document-date">Ajouté le 05/03/2025</span>
+                        <span>2.2 MB</span>
+                    </div>
+                    <div class="document-actions">
+                        <button class="btn btn-primary view-pdf" data-id="td3">Consulter</button>
+                        <button class="btn btn-outline">Télécharger</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TP 3 -->
+            <div class="document-card">
+                <div class="document-thumbnail">
+                    <img src="/api/placeholder/250/150" alt="Aperçu du document" />
+                    <span class="document-format">PDF</span>
+                </div>
+                <div class="document-info">
+                    <span class="document-status status-pending">À rendre (7j)</span>
+                    <h3 class="document-title">TP 3: Création d'une application de gestion avec POO</h3>
+                    <div class="document-meta">
+                        <span class="document-date">Ajouté le 11/03/2025</span>
+                        <span>3.5 MB</span>
+                    </div>
+                    <div class="document-actions">
+                        <button class="btn btn-primary view-pdf" data-id="tp3">Consulter</button>
+                        <button class="btn btn-outline">Télécharger</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TD 4 -->
+            <div class="document-card">
+                <div class="document-thumbnail">
+                    <img src="/api/placeholder/250/150" alt="Aperçu du document" />
+                    <span class="document-format">PDF</span>
+                </div>
+                <div class="document-info">
+                    <span class="document-status status-pending">Disponible le 15/03</span>
+                    <h3 class="document-title">TD 4: Graphes et algorithmes de parcours</h3>
+                    <div class="document-meta">
+                        <span class="document-date">Sera disponible le 15/03/2025</span>
+                        <span>-</span>
+                    </div>
+                    <div class="document-actions">
+                        <button class="btn btn-primary" disabled>Consulter</button>
+                        <button class="btn btn-outline" disabled>Télécharger</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TP 4 -->
+            <div class="document-card">
+                <div class="document-thumbnail">
+                    <img src="/api/placeholder/250/150" alt="Aperçu du document" />
+                    <span class="document-format">PDF</span>
+                </div>
+                <div class="document-info">
+                    <span class="document-status status-pending">Disponible le 17/03</span>
+                    <h3 class="document-title">TP 4: Implémentation d'algorithmes de plus court chemin</h3>
+                    <div class="document-meta">
+                        <span class="document-date">Sera disponible le 17/03/2025</span>
+                        <span>-</span>
+                    </div>
+                    <div class="document-actions">
+                        <button class="btn btn-primary" disabled>Consulter</button>
+                        <button class="btn btn-outline" disabled>Télécharger</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pagination">
+            <div class="page-item active">1</div>
+            <div class="page-item">2</div>
+            <div class="page-item">3</div>
+            <div class="page-item">...</div>
+            <div class="page-item">8</div>
+        </div>
+    </main>
+    
+    <!-- Modal pour afficher les PDF -->
+    <div class="modal" id="pdfModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="pdfTitle">Aperçu du document</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="pdf-container">
+                    <!-- Simulateur d'affichage PDF -->
+                    <iframe class="pdf-viewer" src="/api/placeholder/900/600" id="pdfViewer"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Contact Us Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">CONTACT US</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24c1.12.37 2.33.57 3.57.57c.55 0 1 .45 1 1V20c0 .55-.45 1-1 1c-9.39 0-17-7.61-17-17c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1c0 1.25.2 2.45.57 3.57c.11.35.03.74-.25 1.02z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Phone:</strong> (510) 710-3464
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4l-8 5l-8-5V6l8 5l8-5z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Email:</strong> info@worldcourse.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Links Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">LINKS</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">SUPPORT</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <!-- Follow Us Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">FOLLOW US</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M22.213 5.656a8.4 8.4 0 0 1-2.402.658A4.2 4.2 0 0 0 21.649 4c-.82.488-1.719.83-2.655 1.015a4.182 4.182 0 0 0-7.126 3.814a11.87 11.87 0 0 1-8.621-4.37a4.17 4.17 0 0 0-.566 2.103c0 1.45.739 2.731 1.86 3.481a4.2 4.2 0 0 1-1.894-.523v.051a4.185 4.185 0 0 0 3.355 4.102a4.2 4.2 0 0 1-1.89.072A4.185 4.185 0 0 0 8.02 16.65a8.4 8.4 0 0 1-6.192 1.732a11.83 11.83 0 0 0 6.41 1.88c7.694 0 11.9-6.373 11.9-11.9q0-.271-.012-.541a8.5 8.5 0 0 0 2.086-2.164"/>
+                            </svg>
+                        </a>
+                       
+                       
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03l-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712l-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"></path></svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12.244 4c.534.003 1.87.016 3.29.073l.504.022c1.429.067 2.857.183 3.566.38c.945.266 1.687 1.04 1.938 2.022c.4 1.56.45 4.602.456 5.339l.001.152v.174c-.007.737-.057 3.78-.457 5.339c-.254.985-.997 1.76-1.938 2.022c-.709.197-2.137.313-3.566.38l-.504.023c-1.42.056-2.756.07-3.29.072l-.235.001h-.255c-1.13-.007-5.856-.058-7.36-.476c-.944-.266-1.687-1.04-1.938-2.022c-.4-1.56-.45-4.602-.456-5.339v-.326c.006-.737.056-3.78.456-5.339c.254-.985.997-1.76 1.939-2.021c1.503-.419 6.23-.47 7.36-.476zM9.999 8.5v7l6-3.5z"></path></svg>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Gestion des filtres
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Retirer la classe active de tous les boutons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Ajouter la classe active au bouton cliqué
+                this.classList.add('active');
+                
+                // Logique de filtrage qui serait implémentée ici
+                console.log(`Filtre sélectionné: ${this.textContent}`);
+            });
+        });
+        
+        // Gestion de l'affichage du PDF
+        const modal = document.getElementById('pdfModal');
+        const modalTitle = document.getElementById('pdfTitle');
+        const pdfViewer = document.getElementById('pdfViewer');
+        const modalClose = document.querySelector('.modal-close');
+        const viewButtons = document.querySelectorAll('.view-pdf');
+        
+        // Fonction pour ouvrir le modal
+        function openModal(id, title) {
+            modal.classList.add('show');
+            modalTitle.textContent = title;
+            // Dans une implémentation réelle, on chargerait ici le PDF correspondant
+            // pdfViewer.src = `path/to/${id}.pdf`;
+        }
+        
+        // Fonction pour fermer le modal
+        function closeModal() {
+            modal.classList.remove('show');
+        }
+        
+        // Attacher les événements aux boutons
+        viewButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const title = this.closest('.document-card').querySelector('.document-title').textContent;
+                openModal(id, title);
+            });
+        });
+        
+        // Fermer le modal avec le bouton de fermeture
+        modalClose.addEventListener('click', closeModal);
+        
+        // Fermer le modal en cliquant en dehors du contenu
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // Recherche de documents (simulation)
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            console.log(`Recherche: ${searchTerm}`);
+            // Dans une implémentation réelle, on filtrerait les documents ici
+        });
+    </script>
+</body>
+</html>

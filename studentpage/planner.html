@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner | Plateforme d'apprentissage</title>
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --secondary-color: #8338ec;
+            --accent-color: #ff006e;
+            --light-bg: #f8f9fa;
+            --dark-text: #333;
+            --light-text: #f8f9fa;
+            --border-color: #dee2e6;
+            --today-color: #daf0ff;
+            --task-red: #ff5c5c;
+            --task-blue: #5c8fff;
+            --task-green: #5cff7f;
+            --task-orange: #ffa75c;
+            --task-purple: #c15cff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'SF Pro Display', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+        }
+
+        nav {
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .notification-icon, .profile-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 0.7rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .planner-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .planner-title {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .planner-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .month-navigation {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .month-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .month-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .current-month {
+            font-size: 1.2rem;
+            font-weight: 500;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .add-task-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .add-task-btn:hover {
+            background-color: #2a75e6;
+        }
+
+        .planner-container {
+            display: flex;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .calendar-container {
+            flex: 1;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 500;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #f9fafb;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            flex: 1;
+            height: 100%;
+        }
+
+        .calendar-day {
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            min-height: 100px;
+            padding: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendar-day:nth-child(7n) {
+            border-right: none;
+        }
+
+        .calendar-day.outside-month {
+            color: #adb5bd;
+            background-color: #f9fafb;
+        }
+
+        .calendar-day.today {
+            background-color: var(--today-color);
+        }
+
+        .day-number {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .today .day-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .task-pill {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .task-pill:hover {
+            transform: translateX(2px);
+        }
+
+        .task-red {
+            background-color: var(--task-red);
+            color: white;
+        }
+
+        .task-blue {
+            background-color: var(--task-blue);
+            color: white;
+        }
+
+        .task-green {
+            background-color: var(--task-green);
+            color: #333;
+        }
+
+        .task-orange {
+            background-color: var(--task-orange);
+            color: #333;
+        }
+
+        .task-purple {
+            background-color: var(--task-purple);
+            color: white;
+        }
+
+        .task-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .task-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .task-form {
+            background-color: #fff;
+            border-radius: 10px;
+            width: 400px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .task-form-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #adb5bd;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--dark-text);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.2);
+        }
+
+        .color-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .color-option {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border-color: var(--dark-text);
+        }
+
+        .color-red {
+            background-color: var(--task-red);
+        }
+
+        .color-blue {
+            background-color: var(--task-blue);
+        }
+
+        .color-green {
+            background-color: var(--task-green);
+        }
+
+        .color-orange {
+            background-color: var(--task-orange);
+        }
+
+        .color-purple {
+            background-color: var(--task-purple);
+        }
+
+        .task-form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        .save-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .save-btn:hover {
+            background-color: #2a75e6;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-container {
+                min-height: 500px;
+            }
+            
+            .calendar-day {
+                min-height: 70px;
+                padding: 0.3rem;
+            }
+            
+            .day-number {
+                font-size: 0.9rem;
+            }
+            
+            .task-pill {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">EduPro</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="#">Mes cours</a></li>
+            <li><a href="#" class="active">Planner</a></li>
+            <li><a href="#">Mon apprentissage</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="notification-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+                </svg>
+                <span class="notification-count">3</span>
+            </div>
+            <div class="profile-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="planner-header">
+            <h1 class="planner-title">Mon Planner</h1>
+            <div class="planner-controls">
+                <div class="month-navigation">
+                    <button class="month-btn" id="prevMonth">&#10094;</button>
+                    <div class="current-month" id="currentMonth">Mars 2025</div>
+                    <button class="month-btn" id="nextMonth">&#10095;</button>
+                </div>
+                <button class="add-task-btn" id="openAddTask">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Ajouter une tâche
+                </button>
+            </div>
+        </div>
+
+        <div class="planner-container">
+            <div class="calendar-container">
+                <div class="weekdays">
+                    <div>Lun</div>
+                    <div>Mar</div>
+                    <div>Mer</div>
+                    <div>Jeu</div>
+                    <div>Ven</div>
+                    <div>Sam</div>
+                    <div>Dim</div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar days will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Task Modal -->
+    <div class="task-modal" id="taskModal">
+        <div class="task-form">
+            <div class="task-form-header">
+                <h2 class="task-form-title" id="modalTitle">Ajouter une tâche</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <form id="taskForm">
+                <input type="hidden" id="taskId">
+                <div class="form-group">
+                    <label for="taskTitle" class="form-label">Titre</label>
+                    <input type="text" id="taskTitle" class="form-input" placeholder="Titre de la tâche" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskDate" class="form-label">Date</label>
+                    <input type="date" id="taskDate" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Couleur</label>
+                    <div class="color-options">
+                        <div class="color-option color-red" data-color="task-red"></div>
+                        <div class="color-option color-blue" data-color="task-blue"></div>
+                        <div class="color-option color-green" data-color="task-green"></div>
+                        <div class="color-option color-orange" data-color="task-orange"></div>
+                        <div class="color-option color-purple" data-color="task-purple"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="taskDescription" class="form-label">Description</label>
+                    <textarea id="taskDescription" class="form-input" rows="3" placeholder="Description de la tâche"></textarea>
+                </div>
+                <div class="task-form-buttons">
+                    <button type="button" class="delete-btn" id="deleteTask">Supprimer</button>
+                    <button type="submit" class="save-btn">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Contact Us Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">CONTACT US</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24c1.12.37 2.33.57 3.57.57c.55 0 1 .45 1 1V20c0 .55-.45 1-1 1c-9.39 0-17-7.61-17-17c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1c0 1.25.2 2.45.57 3.57c.11.35.03.74-.25 1.02z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Phone:</strong> (510) 710-3464
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4l-8 5l-8-5V6l8 5l8-5z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Email:</strong> info@worldcourse.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Links Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">LINKS</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">SUPPORT</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <!-- Follow Us Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">FOLLOW US</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M22.213 5.656a8.4 8.4 0 0 1-2.402.658A4.2 4.2 0 0 0 21.649 4c-.82.488-1.719.83-2.655 1.015a4.182 4.182 0 0 0-7.126 3.814a11.87 11.87 0 0 1-8.621-4.37a4.17 4.17 0 0 0-.566 2.103c0 1.45.739 2.731 1.86 3.481a4.2 4.2 0 0 1-1.894-.523v.051a4.185 4.185 0 0 0 3.355 4.102a4.2 4.2 0 0 1-1.89.072A4.185 4.185 0 0 0 8.02 16.65a8.4 8.4 0 0 1-6.192 1.732a11.83 11.83 0 0 0 6.41 1.88c7.694 0 11.9-6.373 11.9-11.9q0-.271-.012-.541a8.5 8.5 0 0 0 2.086-2.164"/>
+                            </svg>
+                        </a>
+                       
+                       
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03l-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712l-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"></path></svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12.244 4c.534.003 1.87.016 3.29.073l.504.022c1.429.067 2.857.183 3.566.38c.945.266 1.687 1.04 1.938 2.022c.4 1.56.45 4.602.456 5.339l.001.152v.174c-.007.737-.057 3.78-.457 5.339c-.254.985-.997 1.76-1.938 2.022c-.709.197-2.137.313-3.566.38l-.504.023c-1.42.056-2.756.07-3.29.072l-.235.001h-.255c-1.13-.007-5.856-.058-7.36-.476c-.944-.266-1.687-1.04-1.938-2.022c-.4-1.56-.45-4.602-.456-5.339v-.326c.006-.737.056-3.78.456-5.339c.254-.985.997-1.76 1.939-2.021c1.503-.419 6.23-.47 7.36-.476zM9.999 8.5v7l6-3.5z"></path></svg>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Current date
+        const today = new Date();
+        let currentMonth = today.getMonth();
+        let currentYear = today.getFullYear();
+
+        // Tasks array (would typically come from a database)
+        let tasks = [
+            {
+                id: 1,
+                title: 'Compléter TP Java',
+                date: '2025-03-12',
+                color: 'task-red',
+                description: 'Finaliser le TP sur les collections en Java'
+            },
+            {
+                id: 2,
+                title: 'Quiz Python',
+                date: '2025-03-15',
+                color: 'task-blue',
+                description: 'Réviser les fonctions et les classes avant le quiz'
+            },
+            {
+                id: 3,
+                title: 'Présentation de projet',
+                date: '2025-03-20',
+                color: 'task-orange',
+                description: 'Préparer la présentation finale du projet web'
+            },
+            {
+                id: 4,
+                title: 'Examen de mathématiques',
+                date: '2025-03-25',
+                color: 'task-purple',
+                description: 'Algèbre linéaire et analyse vectorielle'
+            }
+        ];
+
+        // DOM elements
+        const calendarGrid = document.getElementById('calendarGrid');
+        const currentMonthDisplay = document.getElementById('currentMonth');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        const openAddTaskBtn = document.getElementById('openAddTask');
+        const taskModal = document.getElementById('taskModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const taskForm = document.getElementById('taskForm');
+        const taskIdField = document.getElementById('taskId');
+        const taskTitleField = document.getElementById('taskTitle');
+        const taskDateField = document.getElementById('taskDate');
+        const taskDescriptionField = document.getElementById('taskDescription');
+        const deleteTaskBtn = document.getElementById('deleteTask');
+        const modalTitle = document.getElementById('modalTitle');
+        const colorOptions = document.querySelectorAll('.color-option');
+
+        // Initialize selected color
+        let selectedColor = 'task-blue';
+
+        // Month names
+        const monthNames = [
+            'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+            'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+        ];
+
+        // Initialize calendar
+        function initCalendar() {
+            // Update month display
+            currentMonthDisplay.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+            // Clear grid
+            calendarGrid.innerHTML = '';
+
+            // Get first day of month and number of days
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+            const daysInMonth = lastDay.getDate();
+
+            // Get day of week of first day (0 = Sunday, 1 = Monday, etc.)
+            let firstDayOfWeek = firstDay.getDay();
+            // Adjust for Monday as first day
+            firstDayOfWeek = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
+
+            // Get previous month's last days
+            const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
+
+            // Fill calendar grid
+            let dayCounter = 1;
+            let nextMonthDay = 1;
+
+            // Create 6 rows (6 weeks max in a month)
+            for (let i = 0; i < 42; i++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+
+                // Previous month days
+                if (i < firstDayOfWeek) {
+                    const prevDate = prevMonthLastDay - firstDayOfWeek + i + 1;
+                    dayCell.classList.add('outside-month');
+
+                    const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+                    const prevYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+
+                    dayCell.innerHTML = `<div class="day-number">${prevDate}</div>`;
+                    dayCell.dataset.date = `${prevYear}-${String(prevMonth + 1).padStart(2, '0')}-${String(prevDate).padStart(2, '0')}`;
+                }
+                // Current month days
+                else if (dayCounter <= daysInMonth) {
+                    const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(dayCounter).padStart(2, '0')}`;
+                    dayCell.innerHTML = `<div class="day-number">${dayCounter}</div>`;
+                    dayCell.dataset.date = dateStr;
+
+                    // Check if it's today
+                    if (
+                        dayCounter === today.getDate() &&
+                        currentMonth === today.getMonth() &&
+                        currentYear === today.getFullYear()
+                    ) {
+                        dayCell.classList.add('today');
+                    }
+
+                    // Add tasks for this day
+                    const dayTasks = tasks.filter(task => task.date === dateStr);
+                    dayTasks.forEach(task => {
+                        const taskElement = document.createElement('div');
+                        taskElement.className = `task-pill ${task.color}`;
+                        taskElement.textContent = task.title;
+                        taskElement.dataset.taskId = task.id;
+                        dayCell.appendChild(taskElement);
+                    });
+
+                    dayCounter++;
+                }
+                // Next month days
+                else {
+                    dayCell.classList.add('outside-month');
+
+                    const nextMonth = currentMonth === 11 ? 0 : currentMonth + 1;
+                    const nextYear = currentMonth === 11 ? currentYear + 1 : currentYear;
+
+                    dayCell.innerHTML = `<div class="day-number">${nextMonthDay}</div>`;
+                    dayCell.dataset.date = `${nextYear}-${String(nextMonth + 1).padStart(2, '0')}-${String(nextMonthDay).padStart(2, '0')}`;
+                    nextMonthDay++;
+                }
+
+                calendarGrid.appendChild(dayCell);
+            }
+
+            // Add event listeners for day cells
+            document.querySelectorAll('.calendar-day').forEach(day => {
+                day.addEventListener('click', function(e) {
+                    // If clicked directly on a task pill, open edit task modal
+                    if (e.target.classList.contains('task-pill')) {
+                        const taskId = parseInt(e.target.dataset.taskId);
+                        openEditTaskModal(taskId);
+                    }
+                    // If clicked on the day cell itself, open add task modal
+                    else if (e.target === this || e.target.classList.contains('day-number')) {
+                        openAddTaskModal(this.dataset.date);
+                    }
+                });
+            });
+        }
+
+        // Navigate to previous month
+        function prevMonth() {
+            currentMonth--;
+            if (currentMonth <s   ){
+                currentMonth = 11;
+                currentYear--;
+            }
+            initCalendar();
+        }
+
+        // Navigate to next month
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            initCalendar();
+        }
+
+        // Open modal to add a task
+        function openAddTaskModal(date) {
+            modalTitle.textContent = 'Ajouter une tâche';
+            taskIdField.value = '';
+            taskTitleField.value = '';
+            taskDateField.value = date;
+            taskDescriptionField.value = '';
+            deleteTaskBtn.style.display = 'none';
+
+            // Reset color selection
+            colorOptions.forEach(option => option.classList.remove('selected'));
+            document.querySelector(`.color-option[data-color="task-blue"]`).classList.add('selected');
+            selectedColor = 'task-blue';
+
+            taskModal.classList.add('active');
+        }
+
+        // Open modal to edit a task
+        function openEditTaskModal(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            modalTitle.textContent = 'Modifier la tâche';
+            taskIdField.value = task.id;
+            taskTitleField.value = task.title;
+            taskDateField.value = task.date;
+            taskDescriptionField.value = task.description || '';
+            deleteTaskBtn.style.display = 'block';
+
+            // Set color selection
+            colorOptions.forEach(option => option.classList.remove('selected'));
+            document.querySelector(`.color-option[data-color="${task.color}"]`).classList.add('selected');
+            selectedColor = task.color;
+
+            taskModal.classList.add('active');
+        }
+
+        // Close the modal
+        function closeModal() {
+            taskModal.classList.remove('active');
+        }
+
+        // Save task
+        function saveTask(e) {
+            e.preventDefault();
+
+            const taskId = taskIdField.value;
+            const taskData = {
+                title: taskTitleField.value,
+                date: taskDateField.value,
+                color: selectedColor,
+                description: taskDescriptionField.value
+            };
+
+            // If we have an ID, update existing task
+            if (taskId) {
+                const index = tasks.findIndex(t => t.id === parseInt(taskId));
+                if (index !== -1) {
+                    tasks[index] = {
+                        ...tasks[index],
+                        ...taskData
+                    };
+                }
+            } else {
+                // Add new task
+                const newId = tasks.length > 0 
+                    ? Math.max(...tasks.map(t => t.id)) + 1 
+                    : 1;
+                
+                tasks.push({
+                    id: newId,
+                    ...taskData
+                });
+            }
+
+            closeModal();
+            initCalendar(); // Refresh calendar to show updated tasks
+        }
+
+        // Delete task
+        function deleteTask() {
+            const taskId = parseInt(taskIdField.value);
+            if (!taskId) return;
+
+            tasks = tasks.filter(t => t.id !== taskId);
+            closeModal();
+            initCalendar(); // Refresh calendar to show updated tasks
+        }
+
+        // Event listeners
+        prevMonthBtn.addEventListener('click', prevMonth);
+        nextMonthBtn.addEventListener('click', nextMonth);
+        openAddTaskBtn.addEventListener('click', () => openAddTaskModal(formatDate(today)));
+        closeModalBtn.addEventListener('click', closeModal);
+        taskForm.addEventListener('submit', saveTask);
+        deleteTaskBtn.addEventListener('click', deleteTask);
+
+        // Color selection
+        colorOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                colorOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedColor = this.dataset.color;
+            });
+        });
+
+        // Helper function to format date
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Initialize the calendar on page load
+        document.addEventListener
+</script>
+</body>
+</html>

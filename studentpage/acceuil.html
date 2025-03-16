@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/footer.css">
+    <title>Tableau de bord | Plateforme d'apprentissage</title>
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --secondary-color: #8338ec;
+            --accent-color: #ff006e;
+            --light-bg: #f8f9fa;
+            --dark-text: #333;
+            --light-text: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+        }
+
+        nav {
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .notification-icon, .profile-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent-color);
+            color: white;
+            font-size: 0.7rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .welcome-section {
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-section p {
+            color: #666;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+        }
+
+        .courses-section {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .course-content {
+            padding: 1rem;
+        }
+
+        .course-category {
+            display: inline-block;
+            background-color: rgba(58, 134, 255, 0.1);
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-progress {
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .continue-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .continue-btn:hover {
+            background-color: #2a75e6;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .planner-section, .progress-section {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .task-list {
+            margin-top: 1rem;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-checkbox {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .task-checkbox.checked {
+            background-color: var(--primary-color);
+        }
+
+        .task-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 0.8rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .task-text {
+            flex: 1;
+        }
+
+        .task-date {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .progress-chart {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .progress-bar-vertical {
+            width: 28px;
+            height: 150px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .progress-fill {
+            background-color: var(--primary-color);
+            border-radius: 3px 3px 0 0;
+            width: 100%;
+        }
+
+        .progress-label {
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">EduPro</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Accueil</a></li>
+            <li><a href="#">Mes cours</a></li>
+            <li><a href="#">Planner</a></li>
+            <li><a href="#">Mon apprentissage</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="notification-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+                </svg>
+                <span class="notification-count">3</span>
+            </div>
+            <div class="profile-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="welcome-section">
+            <h1>Bonjour, Thomas!</h1>
+            <p>Voici les cours recommandés pour vous aujourd'hui.</p>
+        </section>
+
+        <div class="dashboard-grid">
+            <section class="courses-section">
+                <div class="section-header">
+                    <h2>Cours recommandés</h2>
+                </div>
+
+                <div class="filters">
+                    <select class="filter-select">
+                        <option>Tous les niveaux</option>
+                        <option>Débutant</option>
+                        <option>Intermédiaire</option>
+                        <option>Avancé</option>
+                    </select>
+                    <select class="filter-select">
+                        <option>Toutes les matières</option>
+                        <option>Mathématiques</option>
+                        <option>Informatique</option>
+                        <option>Langues</option>
+                        <option>Sciences</option>
+                    </select>
+                </div>
+
+                <div class="courses-grid">
+                    <!-- Cours en cours -->
+                    <div class="course-card">
+                        <img src="https://via.placeholder.com/300x150" alt="Cours de Java" class="course-img">
+                        <div class="course-content">
+                            <span class="course-category">Informatique</span>
+                            <h3 class="course-title">Programmation Java</h3>
+                            <div class="course-progress">
+                                <div class="progress-bar" style="width: 60%;"></div>
+                            </div>
+                            <div class="course-footer">
+                                <span>60% terminé</span>
+                                <button class="continue-btn">Continuer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cours recommandé 1 -->
+                    <div class="course-card">
+                        <img src="https://via.placeholder.com/300x150" alt="Cours de Python" class="course-img">
+                        <div class="course-content">
+                            <span class="course-category">Informatique</span>
+                            <h3 class="course-title">Python pour débutants</h3>
+                            <div class="course-progress">
+                                <div class="progress-bar" style="width: 0%;"></div>
+                            </div>
+                            <div class="course-footer">
+                                <span>Nouveau</span>
+                                <button class="continue-btn">Commencer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cours recommandé 2 -->
+                    <div class="course-card">
+                        <img src="https://via.placeholder.com/300x150" alt="Cours de Mathématiques" class="course-img">
+                        <div class="course-content">
+                            <span class="course-category">Mathématiques</span>
+                            <h3 class="course-title">Algèbre linéaire</h3>
+                            <div class="course-progress">
+                                <div class="progress-bar" style="width: 0%;"></div>
+                            </div>
+                            <div class="course-footer">
+                                <span>Recommandé</span>
+                                <button class="continue-btn">Commencer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cours recommandé 3 -->
+                    <div class="course-card">
+                        <img src="https://via.placeholder.com/300x150" alt="Cours d'Anglais" class="course-img">
+                        <div class="course-content">
+                            <span class="course-category">Langues</span>
+                            <h3 class="course-title">Anglais intermédiaire</h3>
+                            <div class="course-progress">
+                                <div class="progress-bar" style="width: 25%;"></div>
+                            </div>
+                            <div class="course-footer">
+                                <span>25% terminé</span>
+                                <button class="continue-btn">Continuer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="sidebar">
+                <section class="planner-section">
+                    <div class="section-header">
+                        <h2>Mon planner</h2>
+                    </div>
+                    <div class="task-list">
+                        <div class="task-item">
+                            <div class="task-checkbox checked"></div>
+                            <div class="task-text">Compléter TP Java</div>
+                            <div class="task-date">Aujourd'hui</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"></div>
+                            <div class="task-text">Quiz Python</div>
+                            <div class="task-date">Demain</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"></div>
+                            <div class="task-text">Révision mathématiques</div>
+                            <div class="task-date">25 Mar</div>
+                        </div>
+                        <div class="task-item">
+                            <div class="task-checkbox"></div>
+                            <div class="task-text">Projet final</div>
+                            <div class="task-date">30 Mar</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="progress-section">
+                    <div class="section-header">
+                        <h2>Mon apprentissage</h2>
+                    </div>
+                    <div class="progress-chart">
+                        <div class="progress-bar-vertical">
+                            <div class="progress-fill" style="height: 80%;"></div>
+                            <div class="progress-label">Lun</div>
+                        </div>
+                        <div class="progress-bar-vertical">
+                            <div class="progress-fill" style="height: 60%;"></div>
+                            <div class="progress-label">Mar</div>
+                        </div>
+                        <div class="progress-bar-vertical">
+                            <div class="progress-fill" style="height: 40%;"></div>
+                            <div class="progress-label">Mer</div>
+                        </div>
+                        <div class="progress-bar-vertical">
+                            <div class="progress-fill" style="height: 90%;"></div>
+                            <div class="progress-label">Jeu</div>
+                        </div>
+                        <div class="progress-bar-vertical">
+                            <div class="progress-fill" style="height: 70%;"></div>
+                            <div class="progress-label">Ven</div>
+                        </div>
+                        <div class="progress-bar-vertical">
+                            <div class="progress-fill" style="height: 20%;"></div>
+                            <div class="progress-label">Sam</div>
+                        </div>
+                        <div class="progress-bar-vertical">
+                            <div class="progress-fill" style="height: 10%;"></div>
+                            <div class="progress-label">Dim</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Contact Us Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">CONTACT US</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24c1.12.37 2.33.57 3.57.57c.55 0 1 .45 1 1V20c0 .55-.45 1-1 1c-9.39 0-17-7.61-17-17c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1c0 1.25.2 2.45.57 3.57c.11.35.03.74-.25 1.02z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Phone:</strong> (510) 710-3464
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4l-8 5l-8-5V6l8 5l8-5z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Email:</strong> info@worldcourse.com
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Links Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">LINKS</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">SUPPORT</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+
+                <!-- Follow Us Column -->
+                <div class="footer-column">
+                    <h3 class="footer-title">FOLLOW US</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M22.213 5.656a8.4 8.4 0 0 1-2.402.658A4.2 4.2 0 0 0 21.649 4c-.82.488-1.719.83-2.655 1.015a4.182 4.182 0 0 0-7.126 3.814a11.87 11.87 0 0 1-8.621-4.37a4.17 4.17 0 0 0-.566 2.103c0 1.45.739 2.731 1.86 3.481a4.2 4.2 0 0 1-1.894-.523v.051a4.185 4.185 0 0 0 3.355 4.102a4.2 4.2 0 0 1-1.89.072A4.185 4.185 0 0 0 8.02 16.65a8.4 8.4 0 0 1-6.192 1.732a11.83 11.83 0 0 0 6.41 1.88c7.694 0 11.9-6.373 11.9-11.9q0-.271-.012-.541a8.5 8.5 0 0 0 2.086-2.164"/>
+                            </svg>
+                        </a>
+                       
+                       
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03l-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712l-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"></path></svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12.244 4c.534.003 1.87.016 3.29.073l.504.022c1.429.067 2.857.183 3.566.38c.945.266 1.687 1.04 1.938 2.022c.4 1.56.45 4.602.456 5.339l.001.152v.174c-.007.737-.057 3.78-.457 5.339c-.254.985-.997 1.76-1.938 2.022c-.709.197-2.137.313-3.566.38l-.504.023c-1.42.056-2.756.07-3.29.072l-.235.001h-.255c-1.13-.007-5.856-.058-7.36-.476c-.944-.266-1.687-1.04-1.938-2.022c-.4-1.56-.45-4.602-.456-5.339v-.326c.006-.737.056-3.78.456-5.339c.254-.985.997-1.76 1.939-2.021c1.503-.419 6.23-.47 7.36-.476zM9.999 8.5v7l6-3.5z"></path></svg>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Script pour simuler l'interaction avec les tâches
+        document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                this.classList.toggle('checked');
+            });
+        });
+
+        // Script pour simuler le filtrage des cours
+        document.querySelectorAll('.filter-select').forEach(select => {
+            select.addEventListener('change', function() {
+                console.log('Filtrage par:', this.value);
+                // Ici vous pourriez ajouter la logique de filtrage réelle
+            });
+        });
+    </script>
+</body>
+</html>

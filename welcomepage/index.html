@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/footer.css">
+    <title>Education Platform</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            overflow-x: hidden;
+        }
+        /* Navigation styles */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    font-family: 'Inter', sans-serif;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo img {
+    height: 35px;
+    margin-right: 12px;
+}
+
+.logo-text {
+    color: #ffb400;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-item {
+    font-weight: 700;
+    font-size: 16px;
+    color: #333333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ffb400;
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover::after {
+    width: 100%;
+}
+
+.nav-item:hover {
+    color: #ffb400;
+}
+
+.cta-button {
+    background-color: #ffb400;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(255, 180, 0, 0.2);
+}
+
+.cta-button:hover {
+    background-color: #e6a200;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 180, 0, 0.3);
+}
+        
+        /* Hero section styles */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            min-height: calc(100vh - 70px);
+        }
+        
+        .hero-text {
+            max-width: 500px;
+        }
+        
+        .hero-text h1 {
+            font-size: 72px;
+            line-height: 1.1;
+            color: #1a2a38;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .hero-image {
+            max-width: 600px;
+        }
+        
+        .hero-image img {
+            width: 100%;
+        }
+        
+        .get-it-now-btn {
+            background-color: #3333ff;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .get-it-now-btn svg {
+            margin-right: 10px;
+        }
+
+        /* Why Choose Us Section Styles */
+    .why-choose-us {
+        padding: 60px 50px;
+        background-color: #ffffff;
+    }
+    
+    .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    
+    .section-header h2 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #1a2a38;
+    }
+    
+    .section-header .highlight {
+        color: #ffb400;
+    }
+    
+    .section-header .subtitle {
+        font-size: 16px;
+        color: #666;
+        font-style: italic;
+    }
+    
+    .features-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .feature-card {
+        display: flex;
+        background-color: #f8f8f8;
+        border-radius: 8px;
+        padding: 25px;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+    }
+    
+    .feature-icon {
+        margin-right: 15px;
+        min-width: 40px;
+    }
+    
+    .feature-icon svg {
+        width: 30px;
+        height: 30px;
+        color: #333;
+    }
+    
+    .feature-content h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: #333;
+    }
+    
+    .feature-content p {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.5;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 992px) {
+        .features-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .features-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .why-choose-us {
+            padding: 40px 20px;
+        }
+    }
+
+    /* Skills Certificate Section Styles */
+    .skills-certificate {
+        padding: 80px 50px;
+        background-color: #f9f9f9;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .skills-certificate::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(#e0e0e0 2px, transparent 2px);
+        background-size: 30px 30px;
+        opacity: 0.3;
+        z-index: 1;
+    }
+    
+    .certificate-container {
+        display: flex;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .certificate-image {
+        flex: 1;
+        padding-right: 30px;
+    }
+    
+    .certificate-image .illustration {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .certificate-content {
+        flex: 1;
+        padding-left: 30px;
+    }
+    
+    .certificate-content h2 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #1a2a38;
+    }
+    
+    .certificate-content .highlight {
+        color: #ffb400;
+    }
+    
+    .certificate-content .subtitle {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 30px;
+    }
+    
+    .certificate-form {
+        width: 100%;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-input {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        background-color: #f5f5f5;
+        font-size: 14px;
+    }
+    
+    .form-input::placeholder {
+        color: #aaa;
+    }
+    
+    .get-started-btn {
+        width: 100%;
+        padding: 15px;
+        background-color: #ffb400;
+        color: #333;
+        border: none;
+        border-radius: 5px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .get-started-btn:hover {
+        background-color: #ffa500;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 992px) {
+        .certificate-container {
+            flex-direction: column;
+        }
+        
+        .certificate-image {
+            padding-right: 0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .certificate-content {
+            padding-left: 0;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .skills-certificate {
+            padding: 50px 20px;
+        }
+    }
+    /* Top Selling Courses Section Styles */
+    .top-selling-courses {
+        padding: 80px 50px;
+        background-color: #ffffff;
+    }
+    
+    .section-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    
+    .section-header h2 {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #1a2a38;
+    }
+    
+    .section-header .highlight {
+        color: #ffb400;
+    }
+    
+    .section-header .subtitle {
+        font-size: 16px;
+        color: #666;
+        font-style: italic;
+    }
+    
+    .course-filters {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 40px;
+    }
+    
+    .filter-btn {
+        padding: 10px 20px;
+        background-color: #f5f5f5;
+        border: none;
+        border-radius: 30px;
+        font-size: 14px;
+        color: #555;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .filter-btn.active {
+        background-color: #ffb400;
+        color: #333;
+        font-weight: 500;
+    }
+    
+    .filter-btn:hover:not(.active) {
+        background-color: #e0e0e0;
+    }
+    
+    .courses-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .course-card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        background-color: #fff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .course-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .course-image {
+        position: relative;
+        height: 150px;
+        background-color: #f0f0f0;
+    }
+    
+    .course-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .course-duration {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: #ffb400;
+        color: #333;
+        padding: 5px 10px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    
+    .course-details {
+        padding: 15px;
+    }
+    
+    .course-level {
+        color: #666;
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+    
+    .course-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+        line-height: 1.4;
+        height: 45px;
+        overflow: hidden;
+    }
+    
+    .course-instructor {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 5px;
+    }
+    
+    .course-rating {
+        margin-bottom: 10px;
+    }
+    
+    .stars {
+        color: #ffb400;
+        font-size: 14px;
+    }
+    
+    .course-price {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .current-price {
+        font-size: 18px;
+        font-weight: 600;
+        color: #ffb400;
+        margin-right: 8px;
+    }
+    
+    .original-price {
+        font-size: 14px;
+        color: #999;
+        text-decoration: line-through;
+    }
+    
+    .course-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .enroll-btn {
+        flex: 1;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #333;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .enroll-btn:hover {
+        background-color: #333;
+        color: #fff;
+    }
+    
+    .wishlist-btn {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .wishlist-btn:hover {
+        background-color: #f5f5f5;
+        border-color: #ccc;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 1200px) {
+        .courses-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    
+    @media (max-width: 992px) {
+        .courses-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .top-selling-courses {
+            padding: 50px 20px;
+        }
+        
+        .courses-grid {
+            grid-template-columns: 1fr;
+            max-width: 400px;
+        }
+    }
+    /* Stats Section */
+    .stats-section {
+            padding: 60px 0;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+            fill: #FFD700;
+        }
+
+        .stat-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-description {
+            font-size: 14px;
+            color: #777;
+            text-transform: uppercase;
+        }
+         /* Blog Section */
+         .blog-section {
+            padding: 60px 0;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .section-title {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        .section-title span {
+            color: #FFB900;
+        }
+
+        .section-subtitle {
+            color: #777;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        .blog-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .blog-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: #fff;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .blog-date {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .view-all-btn {
+            display: inline-block;
+            padding: 10px 30px;
+            background-color: #FFB900;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .view-all-btn:hover {
+            background-color: #e0a800;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .stat-box {
+                min-width: 150px;
+            }
+            
+            .blog-card {
+                min-width: 250px;
+            }
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            padding: 80px 0;
+            text-align: center;
+            background-color: #f9f9f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="50" font-size="30" fill="rgba(0,0,0,0.03)">Q</text></svg>');
+            background-repeat: repeat;
+            z-index: 0;
+        }
+
+        .section-title {
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            color: #333;
+            display: inline;
+        }
+
+        .section-title span {
+            color: #FFB900;
+            font-weight: bold;
+        }
+
+        .section-subtitle {
+            color: #777;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+            font-size: 16px;
+        }
+
+        .testimonial-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 3px solid #FFB900;
+            overflow: hidden;
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-role {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 60px;
+            color: rgba(255, 185, 0, 0.2);
+            position: absolute;
+            line-height: 0;
+        }
+
+        .testimonial-text::before {
+            top: 15px;
+            left: -20px;
+        }
+
+        .testimonial-text::after {
+            bottom: -10px;
+            right: -20px;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: #FFB900;
+        }
+
+        
+    </style>
+</head>
+<body>
+   <!-- Navigation -->
+<nav>
+    <div class="logo">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmYjQwMCI+PHBhdGggZD0iTTEyIDIuMUw5IDYuNWwzIDQuNC0zIDQuNCAxLjUgMi4yIDQuNS02LjYtNC41LTYuNnoiLz48cGF0aCBkPSJNMTIgMi4xTDE1IDYuNWwtMyA0LjQgMyA0LjQtMS41IDIuMi00LjUtNi42IDQuNS02LjZ6Ii8+PC9zdmc+" alt="Logo">
+        <span class="logo-text">HOME</span>
+    </div>
+    
+    <div class="nav-links">
+        <div class="nav-item">
+            <a href="index.html">
+                     Accueil
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="course.html">
+                Cours
+       </a>
+    </div>
+        <div class="nav-item">
+            <a href="blog.html">
+                Blog
+       </a>
+            </div>
+        <div class="nav-item">
+            <a href="apropos.html">
+                À propos
+       </a>
+            </div>
+        <div class="nav-item">
+            <a href="contact.html">
+                Contact
+       </a>
+            </div>
+        <div class="cta-button">
+            <a href="Login.html">
+                Connexion / Inscription
+       </a>
+        </div>
+    </div>
+</nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Great Online Platform</h1>
+            <button class="get-it-now-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <!-- Person outline -->
+                    <path d="M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" fill="#000000"/>
+                    <path d="M12 13c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm0 2c2.69 0 5.77 1.28 6 2H6c.2-.71 3.3-2 6-2z" fill="#000000"/>
+                    <!-- Plus sign for "adding" a user -->
+                    <circle cx="18" cy="6" r="5" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+                    <path d="M18 3v6M15 6h6" stroke="#000000" stroke-width="1.5" fill="none"/>
+                  </svg>
+               S'inscrire 
+            </button>
+        </div>
+        <div class="hero-image">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsLW9wYWNpdHk9IjAiLz48L3N2Zz4=" alt="Online learning illustration">
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+<section class="why-choose-us">
+    <div class="section-header">
+        <h2>Why To <span class="highlight">Choose Us</span></h2>
+        <p class="subtitle">Get many features from us exactly what you are looking for.</p>
+    </div>
+    
+    <div class="features-container">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3>Professional Instruction</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio sint dolores cupiditate, commodi voluptatem corrupti voluptatibus quisquam officiis quod id.</p>
+            </div>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="8" r="7"></circle>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3>Certified Courses</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio sint dolores cupiditate, commodi voluptatem corrupti voluptatibus quisquam officiis quod id.</p>
+            </div>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3>Learn Courses Online</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio sint dolores cupiditate, commodi voluptatem corrupti voluptatibus quisquam officiis quod id.</p>
+            </div>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3>5000+ Online Courses</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio sint dolores cupiditate, commodi voluptatem corrupti voluptatibus quisquam officiis quod id.</p>
+            </div>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3>Free Online Ebooks</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio sint dolores cupiditate, commodi voluptatem corrupti voluptatibus quisquam officiis quod id.</p>
+            </div>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+            </div>
+            <div class="feature-content">
+                <h3>Global Location</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio sint dolores cupiditate, commodi voluptatem corrupti voluptatibus quisquam officiis quod id.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Get Your Skills Certificate Section -->
+<section class="skills-certificate">
+    <div class="certificate-container">
+        <div class="certificate-image">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsLW9wYWNpdHk9IjAiLz48L3N2Zz4=" alt="Learning illustration with people on books" class="illustration">
+        </div>
+        
+        <div class="certificate-content">
+            <h2>Get Your <span class="highlight">Skills Certificate</span></h2>
+            <p class="subtitle">Simple steps to get your quality skills certificate through WorldCourse.</p>
+            
+            <form class="certificate-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Write Your Name*" class="form-input">
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" placeholder="Write Your Email Address*" class="form-input">
+                </div>
+                
+                <button type="submit" class="get-started-btn">GET STARTED NOW</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Top Selling Courses Section -->
+<section class="top-selling-courses">
+    <div class="section-header">
+        <h2>Check Our <span class="highlight">Top Selling Courses</span></h2>
+        <p class="subtitle">Peoples are not only searching but buying these products.</p>
+    </div>
+    
+    <div class="course-filters">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Digital Marketing</button>
+        <button class="filter-btn">Web Design</button>
+        <button class="filter-btn">Photography</button>
+        <button class="filter-btn">Bussiness</button>
+        <button class="filter-btn">Video Editing</button>
+    </div>
+    
+    <div class="courses-grid">
+        <!-- Course Card 1 -->
+        <div class="course-card">
+            <div class="course-image">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PC9zdmc+" alt="Digital Marketing Course">
+                <div class="course-duration">12 Weeks</div>
+            </div>
+            <div class="course-details">
+                <div class="course-level">Beginner</div>
+                <h3 class="course-title">The Complete Package Of Digital Marketing Courses</h3>
+                <div class="course-instructor">James Willam</div>
+                <div class="course-rating">
+                    <span class="stars">★★★★★</span>
+                </div>
+                <div class="course-price">
+                    <span class="current-price">$180.00</span>
+                    <span class="original-price">240.00</span>
+                </div>
+                <div class="course-actions">
+                    <button class="enroll-btn">Enroll Now</button>
+                    <button class="wishlist-btn">♡</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Course Card 2 -->
+        <div class="course-card">
+            <div class="course-image">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PC9zdmc+" alt="Marketing Strategy Courses">
+                <div class="course-duration">10 Weeks</div>
+            </div>
+            <div class="course-details">
+                <div class="course-level">Expert</div>
+                <h3 class="course-title">Top Marketing Strategy Courses - 15 Courses In 1</h3>
+                <div class="course-instructor">2D Course</div>
+                <div class="course-rating">
+                    <span class="stars">★★★★☆</span>
+                </div>
+                <div class="course-price">
+                    <span class="current-price">$180.00</span>
+                    <span class="original-price">240.00</span>
+                </div>
+                <div class="course-actions">
+                    <button class="enroll-btn">Enroll Now</button>
+                    <button class="wishlist-btn">♡</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Course Card 3 -->
+        <div class="course-card">
+            <div class="course-image">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PC9zdmc+" alt="Digital Marketing Masterclass">
+                <div class="course-duration">15 Weeks</div>
+            </div>
+            <div class="course-details">
+                <div class="course-level">All Level</div>
+                <h3 class="course-title">Digital Marketing Masterclass - Complete Guide</h3>
+                <div class="course-instructor">Wokka Stary</div>
+                <div class="course-rating">
+                    <span class="stars">★★★★★</span>
+                </div>
+                <div class="course-price">
+                    <span class="current-price">$180.00</span>
+                    <span class="original-price">240.00</span>
+                </div>
+                <div class="course-actions">
+                    <button class="enroll-btn">Enroll Now</button>
+                    <button class="wishlist-btn">♡</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Course Card 4 -->
+        <div class="course-card">
+            <div class="course-image">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PC9zdmc+" alt="Mega Digital Marketing Course">
+                <div class="course-duration">20 Weeks</div>
+            </div>
+            <div class="course-details">
+                <div class="course-level">Beginner</div>
+                <h3 class="course-title">Mega Digital Marketing Course A To Z - Full Course</h3>
+                <div class="course-instructor">Christin Hanby</div>
+                <div class="course-rating">
+                    <span class="stars">★★★☆☆</span>
+                </div>
+                <div class="course-price">
+                    <span class="current-price">$180.00</span>
+                    <span class="original-price">240.00</span>
+                </div>
+                <div class="course-actions">
+                    <button class="enroll-btn">Enroll Now</button>
+                    <button class="wishlist-btn">♡</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-container">
+            <div class="stat-box">
+                <svg class="stat-icon" viewBox="0 0 24 24">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" fill="none" stroke="#FFB900" stroke-width="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21" stroke="#FFB900" stroke-width="2"/>
+                    <line x1="12" y1="17" x2="12" y2="21" stroke="#FFB900" stroke-width="2"/>
+                </svg>
+                <div class="stat-number">300+ Topics</div>
+                <div class="stat-description">Choose Your Choice</div>
+            </div>
+
+            <div class="stat-box">
+                <svg class="stat-icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="7" r="4" fill="none" stroke="#FFB900" stroke-width="2"/>
+                    <path d="M6 21v-2a6 6 0 0 1 12 0v2" fill="none" stroke="#FFB900" stroke-width="2"/>
+                </svg>
+                <div class="stat-number">1000+ Students</div>
+                <div class="stat-description">Bright Future</div>
+            </div>
+
+            <div class="stat-box">
+                <svg class="stat-icon" viewBox="0 0 24 24">
+                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2" fill="none" stroke="#FFB900" stroke-width="2"/>
+                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2" fill="none" stroke="#FFB900" stroke-width="2"/>
+                    <line x1="6" y1="6" x2="6" y2="6" stroke="#FFB900" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="6" y1="18" x2="6" y2="18" stroke="#FFB900" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <div class="stat-number">300+ Instructors</div>
+                <div class="stat-description">Trained Professionals</div>
+            </div>
+
+            <div class="stat-box">
+                <svg class="stat-icon" viewBox="0 0 24 24">
+                    <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12" fill="none" stroke="#FFB900" stroke-width="2"/>
+                    <circle cx="12" cy="8" r="7" fill="none" stroke="#FFB900" stroke-width="2"/>
+                </svg>
+                <div class="stat-number">120+ Awards</div>
+                <div class="stat-description">Hard Process</div>
+            </div>
+        </div>
+    </div>
+</section>
+ <!-- Blog Section -->
+ <section class="blog-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>View Our <span>Latest Blogs</span></h2>
+        </div>
+        <p class="section-subtitle">Get many features from us exactly what you are looking for.</p>
+
+        <div class="blog-container">
+            <div class="blog-card">
+                <img src="https://via.placeholder.com/350x200" alt="Education Blog" class="blog-image">
+                <div class="blog-content">
+                    <div class="blog-date">Dec 1, 2024</div>
+                    <h3 class="blog-title">Education Is For Human Greatness And Achievements</h3>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <img src="https://via.placeholder.com/350x200" alt="Learning Blog" class="blog-image">
+                <div class="blog-content">
+                    <div class="blog-date">Dec 5, 2024</div>
+                    <h3 class="blog-title">The State Of Learn And Develop Tips In 2020</h3>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <img src="https://via.placeholder.com/350x200" alt="Learning Trends Blog" class="blog-image">
+                <div class="blog-content">
+                    <div class="blog-date">Dec 10, 2024</div>
+                    <h3 class="blog-title">Special Tips For Learning Trends During The Outbreaks</h3>
+                </div>
+            </div>
+        </div>
+
+        <button class="view-all-btn">VIEW ALL</button>
+    </div>
+</section>
+<!-- Testimonial Section -->
+<section class="testimonial-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>See What Our <span>Learners Say</span></h2>
+        </div>
+        <p class="section-subtitle">Here we got the real proof to express our work. Our learners expressed our work.</p>
+
+        <div class="testimonial-container">
+            <div class="testimonial">
+                <div class="testimonial-avatar">
+                    <img src="https://via.placeholder.com/80x80" alt="Recco Gracia">
+                </div>
+                <h3 class="testimonial-name">Recco Gracia</h3>
+                <p class="testimonial-role">Web Developer</p>
+                <p class="testimonial-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea. Consectetur adipiscing elit, sed do eiusmod tempor incididunt enim ad minim veniam."</p>
+                
+                <div class="testimonial-dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+ <!-- Footer Section -->
+ <footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <!-- Contact Us Column -->
+            <div class="footer-column">
+                <h3 class="footer-title">CONTACT US</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24c1.12.37 2.33.57 3.57.57c.55 0 1 .45 1 1V20c0 .55-.45 1-1 1c-9.39 0-17-7.61-17-17c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1c0 1.25.2 2.45.57 3.57c.11.35.03.74-.25 1.02z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-text">
+                        <strong>Phone:</strong> (510) 710-3464
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4l-8 5l-8-5V6l8 5l8-5z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-text">
+                        <strong>Email:</strong> info@worldcourse.com
+                    </div>
+                </div>
+            </div>
+
+            <!-- Links Column -->
+            <div class="footer-column">
+                <h3 class="footer-title">LINKS</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Support Column -->
+            <div class="footer-column">
+                <h3 class="footer-title">SUPPORT</h3>
+                <ul class="footer-links">
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+
+            <!-- Follow Us Column -->
+            <div class="footer-column">
+                <h3 class="footer-title">FOLLOW US</h3>
+                <div class="social-links">
+                    <a href="#" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M22.213 5.656a8.4 8.4 0 0 1-2.402.658A4.2 4.2 0 0 0 21.649 4c-.82.488-1.719.83-2.655 1.015a4.182 4.182 0 0 0-7.126 3.814a11.87 11.87 0 0 1-8.621-4.37a4.17 4.17 0 0 0-.566 2.103c0 1.45.739 2.731 1.86 3.481a4.2 4.2 0 0 1-1.894-.523v.051a4.185 4.185 0 0 0 3.355 4.102a4.2 4.2 0 0 1-1.89.072A4.185 4.185 0 0 0 8.02 16.65a8.4 8.4 0 0 1-6.192 1.732a11.83 11.83 0 0 0 6.41 1.88c7.694 0 11.9-6.373 11.9-11.9q0-.271-.012-.541a8.5 8.5 0 0 0 2.086-2.164"/>
+                        </svg>
+                    </a>
+                   
+                   
+                    <a href="#" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03l-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712l-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"></path></svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12.244 4c.534.003 1.87.016 3.29.073l.504.022c1.429.067 2.857.183 3.566.38c.945.266 1.687 1.04 1.938 2.022c.4 1.56.45 4.602.456 5.339l.001.152v.174c-.007.737-.057 3.78-.457 5.339c-.254.985-.997 1.76-1.938 2.022c-.709.197-2.137.313-3.566.38l-.504.023c-1.42.056-2.756.07-3.29.072l-.235.001h-.255c-1.13-.007-5.856-.058-7.36-.476c-.944-.266-1.687-1.04-1.938-2.022c-.4-1.56-.45-4.602-.456-5.339v-.326c.006-.737.056-3.78.456-5.339c.254-.985.997-1.76 1.939-2.021c1.503-.419 6.23-.47 7.36-.476zM9.999 8.5v7l6-3.5z"></path></svg>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
