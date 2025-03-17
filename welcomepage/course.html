@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="../css/footer.css">
     <title>Digital Marketing Courses</title>
     <style>
 
@@ -373,6 +373,283 @@ nav {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(255, 180, 0, 0.3);
 }
+/* Full-page overlay */
+.overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .overlay.active {
+            display: flex;
+        }
+        
+        .auth-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 400px;
+            max-width: 90%;
+        }
+        
+        .auth-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .auth-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .auth-title span {
+            color: #ffc107;
+            margin-left: 8px;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .tab-btn.active {
+            color: #ffc107;
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #ffc107;
+        }
+        
+        .tab-btn:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .auth-content {
+            padding: 30px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f5f5f5;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #ccc;
+            background-color: #fff;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+        
+        .forgot-password {
+            color: #ffc107;
+            text-decoration: none;
+            font-size: 14px;
+            float: right;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #ffc107;
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #ffb300;
+        }
+        
+        .or-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #777;
+        }
+        
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .or-divider::before {
+            margin-right: 15px;
+        }
+        
+        .or-divider::after {
+            margin-left: 15px;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background-color: white;
+            color: #555;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .social-btn svg {
+            margin-right: 10px;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .auth-footer a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            
+            .main-content {
+                padding-top: 180px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-item {
+                margin: 5px 0;
+            }
+            
+            .auth-tabs {
+                flex-direction: column;
+            }
+        }
+        
+ 
     </style>
 </head>
 <body>
@@ -384,38 +661,101 @@ nav {
         </div>
         
         <div class="nav-links">
-            <div class="nav-item">
-                <a href="index.html">
-                         Accueil
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="course.html">
-                    Cours
-           </a>
-        </div>
-            <div class="nav-item">
-                <a href="blog.html">
-                    Blog
-           </a>
-                </div>
-            <div class="nav-item">
-                <a href="apropos.html">
-                    À propos
-           </a>
-                </div>
-            <div class="nav-item">
-                <a href="contact.html">
-                    Contact
-           </a>
-                </div>
-            <div class="cta-button">
-                <a href="Login.html">
-                    Connexion / Inscription
-           </a>
-            </div>
+            <a href="index.html" class="nav-item">Accueil</a>
+            <a href="course.html" class="nav-item">Cours</a>
+            <a href="blog.html" class="nav-item">Blog</a>
+            <a href="apropos.html" class="nav-item">À propos</a>
+            <a href="contact.html" class="nav-item">Contact</a>
+            <button class="cta-button" onclick="openOverlay()">Connexion / Inscription</button>
         </div>
     </nav>
+
+    <!-- Full-page overlay -->
+    <div class="overlay" id="overlay">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1 class="auth-title">Account <span>Access</span></h1>
+                <p>Welcome back! Please login to your account</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="openTab('login')">Login</button>
+                <button class="tab-btn" onclick="openTab('signup')">Sign Up</button>
+            </div>
+            
+            <div class="auth-content">
+                <!-- Login Tab -->
+                <div id="login" class="tab-content active">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" placeholder="Enter your password">
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                            <a href="#" class="forgot-password">Forgot?</a>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">LOGIN</button>
+                    </form>
+                </div>
+                
+                <!-- Signup Tab -->
+                <div id="signup" class="tab-content">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" placeholder="Enter your password">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" placeholder="Confirm your password">
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="terms">
+                            <label for="terms">I agree to the Terms and Privacy Policy</label>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">SIGN UP</button>
+                        
+                        <div class="or-divider">OR</div>
+                        
+                        <div class="social-login">
+                            <button type="button" class="social-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#DB4437">
+                                    <path d="M21.8,10h-2.6v3h-3v2.6h3V18h2.6v-2.4h3V13h-3V10z M9.8,10.7v2.5h4.1c-0.2,1-1.3,3-4.1,3c-2.5,0-4.5-2-4.5-4.6s2-4.6,4.5-4.6c1.4,0,2.3,0.6,2.9,1.1l2-1.9C13.5,5.1,11.8,4.2,9.8,4.2c-3.9,0-7,3.1-7,7s3.1,7,7,7c4,0,6.7-2.8,6.7-6.8c0-0.5,0-0.8-0.1-1.2H9.8z"/>
+                                </svg>
+                                Google
+                            </button>
+                            <button type="button" class="social-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
+                                    <path d="M20.9,12c0-4.9-4-8.9-8.9-8.9S3.1,7.1,3.1,12c0,4.4,3.2,8.1,7.4,8.8v-6.2H7.9V12h2.6V10c0-2.6,1.5-4,3.9-4c1.1,0,2.3,0.2,2.3,0.2v2.5h-1.3c-1.3,0-1.7,0.8-1.7,1.6V12h2.9l-0.5,3h-2.4v6.2C17.7,20.1,20.9,16.4,20.9,12z"/>
+                                </svg>
+                                Facebook
+                            </button>
+                        </div>
+                        
+                        <p class="auth-footer">Already have an account? <a href="#" onclick="openTab('login')">Login</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
@@ -719,7 +1059,7 @@ nav {
             </div>
         </div>
     </footer>
-
+    <script src="../js/login.js"></script>
 
 </body>
 </html>
