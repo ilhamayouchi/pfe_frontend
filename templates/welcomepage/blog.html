@@ -3,227 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/footer.css">
-    <title>Contact Us</title>
+    <link rel="stylesheet" href="static/css/footer.css">
+    <title>Blog - Educational Platform</title>
     <style>
-        /* Page Header */
-        .page-header {
-            background-color: #f5f5f5;
-            padding: 80px 0 60px;
-            text-align: center;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="50" font-size="30" fill="rgba(0,0,0,0.03)">Q</text></svg>');
-            background-repeat: repeat;
-        }
-
-        .page-title {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .breadcrumb {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-        }
-
-        .breadcrumb-item {
-            color: #777;
-            font-size: 14px;
-        }
-
-        .breadcrumb-item:not(:last-child)::after {
-            content: "/";
-            margin: 0 10px;
-            color: #aaa;
-        }
-
-        .breadcrumb-item a {
-            color: #777;
-            text-decoration: none;
-        }
-
-        .breadcrumb-item a:hover {
-            color: #FFB900;
-        }
+        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
-        
+
         body {
-            background-color: #f9f9f9;
+            background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 15px;
         }
-        
-        .header {
-            padding: 50px 0 20px;
-        }
-        
-        .page-title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .page-title h1 {
-            font-size: 36px;
-            font-weight: 700;
-            color: #222;
-        }
-        
-        .page-title span {
-            color: #ffc107;
-            margin-left: 10px;
-        }
-        
-        .breadcrumb {
-            font-size: 14px;
-            color: #777;
-            margin-bottom: 50px;
-        }
-        
-        .breadcrumb a {
-            color: #777;
-            text-decoration: none;
-        }
-        
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-        
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .contact-info {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .contact-form {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #222;
-        }
-        
-        .contact-description {
-            color: #666;
-            margin-bottom: 25px;
-            font-size: 15px;
-        }
-        
-        .info-section {
-            margin-bottom: 30px;
-        }
-        
-        .info-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .info-details {
-            margin-bottom: 5px;
-            color: #666;
-        }
-        
-        .info-email {
-            color: #ffc107;
-            text-decoration: none;
-        }
-        
-        .info-email:hover {
-            text-decoration: underline;
-        }
-        
-        .form-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #222;
-        }
-        
-        .form-description {
-            color: #666;
-            margin-bottom: 25px;
-            font-size: 15px;
-        }
-        
-        .form-row {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .form-group {
-            flex: 1;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f5f5f5;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: #ccc;
-            background-color: #fff;
-        }
-        
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: #ffc107;
-            color: #333;
-            font-size: 16px;
-            font-weight: 600;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .submit-btn:hover {
-            background-color: #ffb300;
-        }
-        
-        @media (max-width: 768px) {
-            .form-row {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .content {
-                flex-direction: column;
-            }
-        }
-        /* Navigation styles */
+
+       /* Navigation styles */
 nav {
     display: flex;
     align-items: center;
@@ -304,6 +107,151 @@ nav {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(255, 180, 0, 0.3);
 }
+           
+
+        /* Page Header */
+        .page-header {
+            background-color: #f5f5f5;
+            padding: 80px 0 60px;
+            text-align: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="50" font-size="30" fill="rgba(0,0,0,0.03)">Q</text></svg>');
+            background-repeat: repeat;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .breadcrumb-item {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .breadcrumb-item:not(:last-child)::after {
+            content: "/";
+            margin: 0 10px;
+            color: #aaa;
+        }
+
+        .breadcrumb-item a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .breadcrumb-item a:hover {
+            color: #FFB900;
+        }
+
+        /* Blog Section */
+        .blog-section {
+            padding: 60px 0;
+            background-color: #fff;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .blog-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: #fff;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-date {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .blog-title a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .blog-title a:hover {
+            color: #FFB900;
+        }
+
+        .blog-excerpt {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .read-more {
+            color: #FFB900;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            align-self: flex-start;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #e0a800;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            } 
+            .nav-links {
+                display: none;
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -323,72 +271,116 @@ nav {
             <a href="Login.html" class="cta-button">Connexion / Inscription</a>
         </div>
     </nav>
-     <!-- Page Header -->
-     <section class="page-header">
+
+    <!-- Page Header -->
+    <section class="page-header">
         <div class="container">
-            <h1 class="page-title">Contact Us</h1>
+            <h1 class="page-title">Blog</h1>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">HOME</a></li>
                 <li class="breadcrumb-item"><a href="#">PAGES</a></li>
-                <li class="breadcrumb-item">Contact us</li>
+                <li class="breadcrumb-item">Blog</li>
             </ul>
         </div>
     </section>
-        
-        <div class="content">
-            <div class="contact-info">
-                <h2 class="section-title">Contact Information</h2>
-                <p class="contact-description">Turtor dignissim convallis aenean at tortor et risus viverra adipiscing.</p>
-                
-                <div class="info-section">
-                    <h3 class="info-title">Office</h3>
-                    <p class="info-details">730 Clandeline Ave 63892, Springfield, US</p>
-                    <p class="info-details">+123 987 321</p>
-                    <p class="info-details">+123 123 654</p>
-                    <a href="mailto:contactoffice@website.com" class="info-email">contactoffice@website.com</a>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="blog-grid">
+                <!-- Blog Card 1 -->
+                <div class="blog-card">
+                    <img src="https://via.placeholder.com/350x220" alt="Students studying" class="blog-image">
+                    <div class="blog-content">
+                        <div class="blog-date">Dec 1, 2024</div>
+                        <h3 class="blog-title">
+                            <a href="#">Good Ways To Set Mind While Studying</a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            At the core of our practice is the idea that cities are the incubators of our greatest achievements, and the best hope for a sustainable future.
+                        </p>
+                        <a href="#" class="read-more">READ MORE</a>
+                    </div>
                 </div>
-                
-                <div class="info-section">
-                    <h3 class="info-title">Management</h3>
-                    <p class="info-details">730 Clandeline Ave 63892, Springfield, US</p>
-                    <p class="info-details">+123 987 321</p>
-                    <p class="info-details">+123 123 654</p>
-                    <a href="mailto:contactmanagement@website.com" class="info-email">contactmanagement@website.com</a>
+
+                <!-- Blog Card 2 -->
+                <div class="blog-card">
+                    <img src="https://via.placeholder.com/350x220" alt="Education" class="blog-image">
+                    <div class="blog-content">
+                        <div class="blog-date">Dec 3, 2024</div>
+                        <h3 class="blog-title">
+                            <a href="#">Education Is For Human Greatness And Achievements</a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            At the core of our practice is the idea that cities are the incubators of our greatest achievements, and the best hope for a sustainable future. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                        <a href="#" class="read-more">READ MORE</a>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="contact-form">
-                <h2 class="form-title">Get In Touch</h2>
-                <p class="form-description">Use the form below to get in touch with us.</p>
-                
-                <form>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Write Your Name Here">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Write Your Email Here">
-                        </div>
+
+                <!-- Blog Card 3 -->
+                <div class="blog-card">
+                    <img src="https://via.placeholder.com/350x220" alt="Learning" class="blog-image">
+                    <div class="blog-content">
+                        <div class="blog-date">Dec 5, 2024</div>
+                        <h3 class="blog-title">
+                            <a href="#">Education Is For Human Greatness And Achievements</a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            At the core of our practice is the idea that cities are the incubators of our greatest achievements, and the best hope for a sustainable future.
+                        </p>
+                        <a href="#" class="read-more">READ MORE</a>
                     </div>
-                    
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <input type="tel" class="form-control" placeholder="Phone Number">
+                </div>
+
+                <!-- Blog Card 4 -->
+                <div class="blog-card">
+                    <img src="https://via.placeholder.com/350x220" alt="Distance Learning" class="blog-image">
+                    <div class="blog-content">
+                        <div class="blog-date">Dec 3, 2024</div>
+                        <h3 class="blog-title">
+                            <a href="#">Education Is For Human Greatness And Achievements</a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            At the core of our practice is the idea that cities are the incubators of our greatest achievements, and the best hope for a sustainable future.
+                        </p>
+                        <a href="#" class="read-more">READ MORE</a>
                     </div>
-                    
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <input type="text" class="form-control" placeholder="Write Your Subject Here">
+                </div>
+
+                <!-- Blog Card 5 -->
+                <div class="blog-card">
+                    <img src="https://via.placeholder.com/350x220" alt="Students studying" class="blog-image">
+                    <div class="blog-content">
+                        <div class="blog-date">Dec 4, 2024</div>
+                        <h3 class="blog-title">
+                            <a href="#">Good Ways To Set Mind While Studying</a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            At the core of our practice is the idea that cities are the incubators of our greatest achievements, and the best hope for a sustainable future. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        </p>
+                        <a href="#" class="read-more">READ MORE</a>
                     </div>
-                    
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <textarea class="form-control" rows="4" placeholder="Write Your Message Here"></textarea>
+                </div>
+
+                <!-- Blog Card 6 -->
+                <div class="blog-card">
+                    <img src="https://via.placeholder.com/350x220" alt="State Of Learn" class="blog-image">
+                    <div class="blog-content">
+                        <div class="blog-date">Dec 8, 2024</div>
+                        <h3 class="blog-title">
+                            <a href="#">The State Of Learn And Develop Tips In 2020</a>
+                        </h3>
+                        <p class="blog-excerpt">
+                            At the core of our practice is the idea that cities are the incubators of our greatest achievements, and the best hope for a sustainable future.
+                        </p>
+                        <a href="#" class="read-more">READ MORE</a>
                     </div>
-                    
-                    <button type="submit" class="submit-btn">SUBMIT</button>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-
+    </section>
+    <!-- Footer Section -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -470,6 +462,5 @@ nav {
         </div>
     </footer>
     <script src="../js/login.js"></script>
-    
 </body>
 </html>

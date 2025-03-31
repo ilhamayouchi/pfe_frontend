@@ -3,10 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="static/css/footer.css">
     <title>Digital Marketing Courses</title>
     <style>
+        /* Navigation styles */
+ nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    font-family: 'Inter', sans-serif;
+}
 
+.logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo img {
+    height: 35px;
+    margin-right: 12px;
+}
+
+.logo-text {
+    color: #ffb400;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-item {
+    font-weight: 700;
+    font-size: 16px;
+    color: #333333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: relative;
+    text-decoration: none;
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ffb400;
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover::after {
+    width: 100%;
+}
+
+.nav-item:hover {
+    color: #ffb400;
+}
+
+.cta-button {
+    background-color: #ffb400;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(255, 180, 0, 0.2);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cta-button:hover {
+    background-color: #e6a200;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 180, 0, 0.3);
+}
+        
+        /* Hero section styles */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            min-height: calc(100vh - 70px);
+        }
+        
+        .hero-text {
+            max-width: 500px;
+        }
+        
+        .hero-text h1 {
+            font-size: 72px;
+            line-height: 1.1;
+            color: #1a2a38;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .hero-image {
+            max-width: 600px;
+        }
+        
+        .hero-image img {
+            width: 100%;
+        }
+        
+        .get-it-now-btn {
+            background-color: #3333ff;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .get-it-now-btn svg {
+            margin-right: 10px;
+        }
         /* Page Header */
         .page-header {
             background-color: #f5f5f5;
